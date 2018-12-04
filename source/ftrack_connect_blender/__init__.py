@@ -4,7 +4,7 @@ bl_info = {
     "author": "lorenzo.angeli@gmail.com",
     "version": (0,0,0),
     "blender": (2,80,0),
-    "location": "View3D",
+    "location": "System",
     "category": "object"
 }
 

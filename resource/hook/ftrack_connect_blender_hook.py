@@ -12,6 +12,12 @@ import ftrack
 import ftrack_connect.application
 
 
+cwd = os.path.dirname(__file__)
+dependencies = os.path.abspath(os.path.join(cwd, '..', 'dependencies'))
+sys.path.append(dependencies)
+
+
+
 class LaunchApplicationAction(object):
     '''Discover and launch blender.'''
 
@@ -138,7 +144,7 @@ class LaunchApplicationAction(object):
         '''Return version information.'''
         return dict(
             name='ftrack connect blender',
-            version="0.0.0"
+            version=ftrack_connect_blender._version.__version__
         )
 
 
@@ -261,8 +267,17 @@ class ApplicationLauncher(ftrack_connect.application.ApplicationLauncher):
         environment['FTRACK_SHOTID'] = task.get('parent_id')
 
         environment = ftrack_connect.application.appendPath(
-            nuke_plugin_path, 'NUKE_PATH', environment
+            dependencies, 
+            'BLENDER_USER_SCRIPTS', 
+            environment
         )
+        
+        environment = ftrack_connect.application.appendPath(
+            dependencies, 
+            'PYTHONPATH', 
+            environment
+        )
+
 
         return environment
 
