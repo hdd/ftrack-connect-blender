@@ -22,9 +22,16 @@ HOOK_PATH = os.path.join(
     RESOURCE_PATH, 'hook'
 )
 
+ADDON_PATH = os.path.join(
+    RESOURCE_PATH, 'addon'
+)
+
 BUILD_PATH = os.path.join(
     ROOT_PATH, 'build'
 )
+
+
+
 
 
 # Read version from source.
@@ -61,6 +68,12 @@ class BuildPlugin(setuptools.Command):
         shutil.copytree(
             HOOK_PATH,
             os.path.join(STAGING_PATH, 'hook')
+        )
+        
+        # Copy resource files
+        shutil.copytree(
+            ADDON_PATH,
+            os.path.join(STAGING_PATH, 'addon')
         )
 
         pip_main(

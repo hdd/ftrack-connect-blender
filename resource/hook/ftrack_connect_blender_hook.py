@@ -1,5 +1,4 @@
 # :coding: utf-8
-# :copyright: Copyright (c) 2015 ftrack
 
 import getpass
 import sys
@@ -14,9 +13,10 @@ import ftrack_connect.application
 
 cwd = os.path.dirname(__file__)
 dependencies = os.path.abspath(os.path.join(cwd, '..', 'dependencies'))
+addon_path = os.path.abspath(os.path.join(cwd, '..', 'addon'))
 sys.path.append(dependencies)
 
-
+import ftrack_connect_blender
 
 class LaunchApplicationAction(object):
     '''Discover and launch blender.'''
@@ -144,7 +144,7 @@ class LaunchApplicationAction(object):
         '''Return version information.'''
         return dict(
             name='ftrack connect blender',
-            version=ftrack_connect_blender._version.__version__
+            version=ftrack_connect_blender.__version__
         )
 
 
@@ -206,7 +206,8 @@ class ApplicationStore(ftrack_connect.application.ApplicationStore):
         #     ))
 
         if 'linux' in sys.platform:
-            prefix =  ['/', 'home', 'langeli', 'bin', 'blender', 'blender-2.8-ftrack']
+            user = os.getenv('USER')
+            prefix =  ['/', 'home', user, 'bin', 'blender', 'blender-2.8-ftrack']
             blender_location = self._checkBlenderLocation()
             if blender_location:
                 prefix = blender_location
@@ -267,8 +268,14 @@ class ApplicationLauncher(ftrack_connect.application.ApplicationLauncher):
         environment['FTRACK_SHOTID'] = task.get('parent_id')
 
         environment = ftrack_connect.application.appendPath(
-            dependencies, 
+            addon_path,
             'BLENDER_USER_SCRIPTS', 
+            environment
+        )
+        
+        environment = ftrack_connect.application.appendPath(
+            addon_path, 
+            'PYTHONPATH', 
             environment
         )
         
@@ -277,7 +284,6 @@ class ApplicationLauncher(ftrack_connect.application.ApplicationLauncher):
             'PYTHONPATH', 
             environment
         )
-
 
         return environment
 
