@@ -1,5 +1,9 @@
+import bpy
+import ftrack_connect_blender
+import ftrack_api
+
 bl_info = {
-	"name": "ftrack connect blender",
+	"name": "ftrack",
     "description": "Asset Manager",
     "author": "Lorenzo Angeli, Paolo Acampora",
     "version": (0,0,0),
@@ -8,17 +12,13 @@ bl_info = {
     "category": "Asset Manager"
 }
 
-import bpy
-import ftrack_connect_blender
-import ftrack_api
-
 
 def register():
-    pass
+    print('registering ftrack')
 
 
 def unregister():
-    pass
+    print('un-registering ftrack')
 
 
 if __name__ == "__main__":
