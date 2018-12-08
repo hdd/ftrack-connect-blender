@@ -100,12 +100,12 @@ class BuildPlugin(setuptools.Command):
 setup(
     name='ftrack-connect-blender',
     version=VERSION,
-    description='A dialog to publish assets from Maya to ftrack',
+    description='Connection between blender and ftrack.',
     long_description=open(README_PATH).read(),
-    keywords='ftrack',
-    url='https://bitbucket.org/efestolab/ftrack-connect-blender',
+    keywords='ftrack, blender',
+    url='https://github.org/hdd/ftrack-connect-blender',
     author='ftrack',
-    author_email='support@ftrack.com',
+    author_email='lorenzo.angeli@gmail.com',
     license='Apache License (2.0)',
     packages=find_packages(SOURCE_PATH),
     package_dir={
