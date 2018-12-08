@@ -23,7 +23,7 @@ HOOK_PATH = os.path.join(
 )
 
 ADDON_PATH = os.path.join(
-    RESOURCE_PATH, 'addon'
+    RESOURCE_PATH, 'scripts'
 )
 
 BUILD_PATH = os.path.join(
@@ -73,7 +73,7 @@ class BuildPlugin(setuptools.Command):
         # Copy resource files
         shutil.copytree(
             ADDON_PATH,
-            os.path.join(STAGING_PATH, 'addon')
+            os.path.join(STAGING_PATH, 'scripts')
         )
 
         pip_main(
@@ -95,24 +95,6 @@ class BuildPlugin(setuptools.Command):
             STAGING_PATH
         )
 
-        print 'Result: ' + result_path
-
-
-# Custom commands.
-class PyTest(TestCommand):
-    '''Pytest command.'''
-
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        '''Import pytest and run.'''
-        import pytest
-        errno = pytest.main(self.test_args)
-        raise SystemExit(errno)
-
 
 # Configuration.
 setup(
@@ -130,19 +112,18 @@ setup(
         '': 'source'
     },
     setup_requires=[
-        'sphinx >= 1.2.2, < 2',
-        'sphinx_rtd_theme >= 0.1.6, < 2',
-        'lowdown >= 0.1.0, < 2'
     ],
     install_requires=[
-        'ftrack-python-api',
-        'ftrack_action_handler < 1'
+        'ftrack-python-api==1.7.0.1',
     ],
-    tests_require=[
-        'pytest >= 2.3.5, < 3'
+    dependency_links=[
+        (
+            'https://bitbucket.org/ftrack/ftrack-python-api/'
+            'get/backlog/ftrack-python-api-compatibility-with-python-3.zip'
+            '#egg=ftrack-python-api-1.7.0.1'
+        )
     ],
     cmdclass={
-        'test': PyTest,
         'build_plugin': BuildPlugin
     },
     zip_safe=False

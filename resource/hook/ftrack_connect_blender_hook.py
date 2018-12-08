@@ -13,10 +13,12 @@ import ftrack_connect.application
 
 cwd = os.path.dirname(__file__)
 dependencies = os.path.abspath(os.path.join(cwd, '..', 'dependencies'))
-addon_path = os.path.abspath(os.path.join(cwd, '..', 'addon'))
+addon_path = os.path.abspath(os.path.join(cwd, '..', 'scrips'))
 sys.path.append(dependencies)
 
 import ftrack_connect_blender
+print addon_path
+print dependencies
 
 class LaunchApplicationAction(object):
     '''Discover and launch blender.'''
@@ -273,17 +275,7 @@ class ApplicationLauncher(ftrack_connect.application.ApplicationLauncher):
             environment
         )
         
-        environment = ftrack_connect.application.appendPath(
-            addon_path, 
-            'PYTHONPATH', 
-            environment
-        )
-        
-        environment = ftrack_connect.application.appendPath(
-            dependencies, 
-            'PYTHONPATH', 
-            environment
-        )
+        environment['PYTHONPATH'] = dependencies
 
         return environment
 

@@ -8,5 +8,18 @@ bl_info = {
     "category": "Asset Manager"
 }
 
-
 import bpy
+import ftrack_connect_blender
+import ftrack_api
+
+
+def register():
+    pass
+
+
+def unregister():
+    pass
+
+
+if __name__ == "__main__":
+    register()
