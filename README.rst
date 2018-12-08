@@ -19,14 +19,14 @@ then run :
 
 install
 =======
-Stop connect
-copy or symlink the build result in ftrack connect build plugins folder
-start connect
+* Stop connect
+* Copy or symlink the build result in ftrack connect build plugins folder
+* Start connect
 
 
 
 run
 ===
-start connect
-select a task
-run blender
+* Start connect
+* Select a task
+* Run blender
